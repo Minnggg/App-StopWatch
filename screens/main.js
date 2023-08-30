@@ -59,7 +59,6 @@ function LapTable({ laps, timer}) {
         finishedLaps.forEach(lap => {
             if (lap < min) min = lap
             if (lap > max) max = lap
-
         });
     }
 
@@ -87,6 +86,7 @@ export default class main extends Component{
             now:0,
             laps: [],
         }
+        
     }
 
     start = () => {
@@ -96,11 +96,11 @@ export default class main extends Component{
             now,
             laps : [0]
         })
+
         this.timer  = setInterval( () => {
             this.setState({now: new Date().getTime()})
         },100)
     }
-
 
     stop = () => {
         clearInterval(this.timer)
@@ -112,17 +112,30 @@ export default class main extends Component{
             now : 0
         })
     }
+        //hàm chính
+    // Lap = () => {
+    //     const timestamp = new Date().getTime()
+    //     const {laps,now,start} = this.state
+    //     const [firstLap,... other] = laps
+    //     this.setState({
+    //         laps : [0,firstLap +now -start , ... other],
+    //         start : timestamp,
+    //         now : timestamp
+    //     })
+    // }
 
     Lap = () => {
         const timestamp = new Date().getTime()
         const {laps,now,start} = this.state
         const [firstLap,... other] = laps
         this.setState({
-            laps : [0,firstLap + now - start, ... other],
+            laps : [0,firstLap + now -start , ... other],
             start : timestamp,
             now : timestamp
         })
     }
+
+
 
     reset = () => {
         this.setState({
@@ -131,7 +144,6 @@ export default class main extends Component{
             now : 0,
         })
     }
-
     resume = () => {
         const now = new Date().getTime()
         this.setState({
@@ -160,7 +172,7 @@ export default class main extends Component{
                     marginTop : 80,
                     marginBottom : 30
                 }}>
-                    <RoundButton title='Reset' color='#fffff' background='#3D3D3D' ></RoundButton>
+                    <RoundButton title='Reset' color='#fffff' background='#3D3D3D' onPress={()=>{}} ></RoundButton>
                     <RoundButton 
                         onPress = {this.start}
                         title='Start' 
